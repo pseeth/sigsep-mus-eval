@@ -1,0 +1,376 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Usage &mdash; museval 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="museval 0.2.0 documentation" href="index.html"/>
+        <link rel="next" title="museval modules" href="museval.html"/>
+        <link rel="prev" title="museval" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> museval
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#run-and-evaluate">Run and Evaluate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluate-later">Evaluate later</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#commandline-tool">Commandline tool</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-docker-for-evaluation">Using Docker for Evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pull-docker-container">1. Pull Docker Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-evaluation">2. Run evaluation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="museval.html">museval modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="museval.metrics.html">BSSEval v4</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">museval</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<p>The purpose of this package is to evaluate source separation results and
+write out standardized <code class="docutils literal"><span class="pre">json</span></code> files that can easiliy be parsed by the
+SiSEC submission system. Furthermore we want to encourage users to use
+this evaluation output format as the standardized way to share source
+separation results for processed tracks. We provide two different ways
+to use <code class="docutils literal"><span class="pre">museval</span></code> in conjunction with your source separation results.</p>
+<div class="section" id="run-and-evaluate">
+<h2>Run and Evaluate<a class="headerlink" href="#run-and-evaluate" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>If you want to perform evaluation while processing your source
+separation results, you can hook <code class="docutils literal"><span class="pre">museval</span></code> into your <code class="docutils literal"><span class="pre">musdb</span></code>
+user_function:</li>
+</ul>
+<p>Here is an example for such a function separating the mixture into a
+<strong>vocals</strong> and <strong>accompaniment</strong> track:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">musdb</span>
+<span class="kn">import</span> <span class="nn">museval</span>
+
+<span class="n">output_dir</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">estimates_dir</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">estimate_and_evaluate</span><span class="p">(</span><span class="n">track</span><span class="p">):</span>
+    <span class="c1"># generate your estimates</span>
+    <span class="n">estimates</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;vocals&#39;</span><span class="p">:</span> <span class="n">track</span><span class="o">.</span><span class="n">audio</span><span class="p">,</span>
+        <span class="s1">&#39;accompaniment&#39;</span><span class="p">:</span> <span class="n">track</span><span class="o">.</span><span class="n">audio</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Evaluate using museval</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">museval</span><span class="o">.</span><span class="n">eval_mus_track</span><span class="p">(</span>
+        <span class="n">track</span><span class="p">,</span> <span class="n">estimates</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span>
+    <span class="p">)</span>
+
+    <span class="c1"># print nicely formatted mean scores</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+
+    <span class="c1"># return estimates as usual</span>
+    <span class="k">return</span> <span class="n">estimates</span>
+
+<span class="c1"># your usual way to run musdb</span>
+<span class="n">musdb</span><span class="o">.</span><span class="n">DB</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Make sure <code class="docutils literal"><span class="pre">output_dir</span></code> is set. <code class="docutils literal"><span class="pre">museval</span></code> will recreate the
+<code class="docutils literal"><span class="pre">musdb</span></code> file structure in that folder and write the evaluation
+results to this folder. <strong>This whole folder should be submitted for
+your SiSEC contribution</strong>.</li>
+</ul>
+</div>
+<div class="section" id="evaluate-later">
+<h2>Evaluate later<a class="headerlink" href="#evaluate-later" title="Permalink to this headline">¶</a></h2>
+<p>If you have already computed your estimates (maybe through the use of
+MATLAB), we provide you with an easy-to-use function to process
+evaluation results afterwards.</p>
+<p>Simply use the <code class="docutils literal"><span class="pre">museval.eval_mus_dir</span></code> to evaluate your
+<code class="docutils literal"><span class="pre">estimates_dir</span></code> and write the results into the <code class="docutils literal"><span class="pre">output_dir</span></code>. For
+convenience, the <code class="docutils literal"><span class="pre">eval_mus_dir</span></code> function accepts all parameters of the
+<code class="docutils literal"><span class="pre">musdb.run()</span></code>. That way e.g.&nbsp;multiprocessing can easily be enabled by
+setting <code class="docutils literal"><span class="pre">parallel=True</span></code>:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">musdb</span>
+<span class="kn">import</span> <span class="nn">museval</span>
+
+<span class="c1"># initiate musdb</span>
+<span class="n">mus</span> <span class="o">=</span> <span class="n">musdb</span><span class="o">.</span><span class="n">DB</span><span class="p">()</span>
+
+<span class="c1"># evaluate an existing estimate folder with wav files</span>
+<span class="n">museval</span><span class="o">.</span><span class="n">eval_mus_dir</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="o">=</span><span class="n">mus</span><span class="p">,</span>  <span class="c1"># instance of musdb</span>
+    <span class="n">estimates_dir</span><span class="o">=...</span><span class="p">,</span>  <span class="c1"># path to estimate folder</span>
+    <span class="n">output_dir</span><span class="o">=...</span><span class="p">,</span>  <span class="c1"># set a folder to write eval json files</span>
+    <span class="n">subsets</span><span class="o">=</span><span class="s2">&quot;Test&quot;</span><span class="p">,</span>
+    <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="commandline-tool">
+<h3>Commandline tool<a class="headerlink" href="#commandline-tool" title="Permalink to this headline">¶</a></h3>
+<p>We provide a commandline wrapper of <code class="docutils literal"><span class="pre">eval_mus_dir</span></code> by calling the
+<code class="docutils literal"><span class="pre">museval</span></code> commandline tool. The following example is equivalent to the
+code example above:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">museval</span> <span class="o">-</span><span class="n">p</span> <span class="o">--</span><span class="n">mus</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">musdb</span> <span class="o">-</span><span class="n">o</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">output_dir</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">estimate_dir</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="using-docker-for-evaluation">
+<h2>Using Docker for Evaluation<a class="headerlink" href="#using-docker-for-evaluation" title="Permalink to this headline">¶</a></h2>
+<p>If you don’t want to set up a Python environment to run the evaluation,
+we would recommend to use <a class="reference external" href="http://docker.com">Docker</a>.</p>
+<div class="section" id="pull-docker-container">
+<h3>1. Pull Docker Container<a class="headerlink" href="#pull-docker-container" title="Permalink to this headline">¶</a></h3>
+<p>Pull our precompiled <code class="docutils literal"><span class="pre">sigsep-mus-eval</span></code> image from dockerhub:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">pull</span> <span class="n">faroit</span><span class="o">/</span><span class="n">sigsep</span><span class="o">-</span><span class="n">mus</span><span class="o">-</span><span class="nb">eval</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-evaluation">
+<h3>2. Run evaluation<a class="headerlink" href="#run-evaluation" title="Permalink to this headline">¶</a></h3>
+<p>Lets assume you have stored the estimates directory in
+<code class="docutils literal"><span class="pre">path/to/estimate_dir</span></code>, the MUSDB18 is stored in <code class="docutils literal"><span class="pre">path/to/musdb</span></code>,
+and you want to write the output.json files to <code class="docutils literal"><span class="pre">path/to/output_dir</span></code>.
+You then just mount these directories into the docker container using
+the <code class="docutils literal"><span class="pre">-v</span></code> flags and run the container:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">rm</span> <span class="o">-</span><span class="n">v</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">estimate_dir</span><span class="p">:</span><span class="o">/</span><span class="n">est</span> <span class="o">-</span><span class="n">v</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">musdb</span><span class="p">:</span><span class="o">/</span><span class="n">mus</span> <span class="o">-</span><span class="n">v</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">output_dir</span><span class="p">:</span><span class="o">/</span><span class="n">out</span> <span class="n">faroit</span><span class="o">/</span><span class="n">sigsep</span><span class="o">-</span><span class="n">mus</span><span class="o">-</span><span class="nb">eval</span> <span class="o">--</span><span class="n">mus</span> <span class="o">/</span><span class="n">mus</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">out</span> <span class="o">/</span><span class="n">est</span>
+</pre></div>
+</div>
+<p>Please note hat docker requires absolute paths so you have to rely on
+your command line environment to convert relative paths to absolute
+paths (e.g.&nbsp;by using <code class="docutils literal"><span class="pre">$HOME/</span></code> on Unix).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">warning:</th><td class="field-body"><code class="docutils literal"><span class="pre">museval</span></code> requires a significant amount of memory for the</td>
+</tr>
+</tbody>
+</table>
+<p>evaluation. Evaluating all five targets for musdb18 may require more
+than 4GB of RAM. If you use multiprocessing by using the <code class="docutils literal"><span class="pre">-p</span></code> switch
+in <code class="docutils literal"><span class="pre">museval</span></code>, this results in 16GB of RAM. It is recommended to adjust
+your Docker preferences, because the docker container might just quit if
+its out of memory.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="museval.html" class="btn btn-neutral float-right" title="museval modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="museval" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Fabian-Robert Stöter.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

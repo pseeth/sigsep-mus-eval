@@ -1,0 +1,477 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>BSSEval v4 &mdash; museval 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="museval 0.2.0 documentation" href="index.html"/>
+        <link rel="prev" title="museval modules" href="museval.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> museval
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="museval.html">museval modules</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">BSSEval v4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#conventions">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#metrics">Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">museval</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>BSSEval v4</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/museval.metrics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-museval.metrics">
+<span id="bsseval-v4"></span><h1>BSSEval v4<a class="headerlink" href="#module-museval.metrics" title="Permalink to this headline">¶</a></h1>
+<p>BSS Eval toolbox, version 4 (Based on mir_eval.separation)</p>
+<p>Source separation algorithms attempt to extract recordings of individual
+sources from a recording of a mixture of sources.  Evaluation methods for
+source separation compare the extracted sources from reference sources and
+attempt to measure the perceptual quality of the separation.</p>
+<p>See also the bss_eval MATLAB toolbox:
+<a class="reference external" href="http://bass-db.gforge.inria.fr/bss_eval/">http://bass-db.gforge.inria.fr/bss_eval/</a></p>
+<div class="section" id="conventions">
+<h2>Conventions<a class="headerlink" href="#conventions" title="Permalink to this headline">¶</a></h2>
+<p>An audio signal is expected to be in the format of a 2-dimensional array where
+the first dimension goes over the samples of the audio signal and the second
+dimension goes over the channels (as in stereo left and right).
+When providing a group of estimated or reference sources, they should be
+provided in a 3-dimensional array, where the first dimension corresponds to the
+source number, the second corresponds to the samples and the third to the
+channels.</p>
+</div>
+<div class="section" id="metrics">
+<h2>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><code class="xref py py-func docutils literal"><span class="pre">mir_eval.separation.bss_eval()</span></code>: Computes the bss_eval metrics: source
+to distortion (SDR), source to artifacts (SAR), source to interference (SIR)
+ratios, plus the image to spatial ratio (ISR). These are computed on a frame
+by frame basis, (with infinite window size meaning the whole signal).</p>
+<p>Optionally, the distortion filters are time-varying, corresponding to
+behavior of BSS Eval version 3. Furthermore, metrics may optionally
+correspond to the bsseval_sources version, as defined in the BSS Eval
+version 2.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div></div></blockquote>
+<p>self</p>
+<dl class="class">
+<dt id="museval.metrics.Framing">
+<em class="property">class </em><code class="descclassname">museval.metrics.</code><code class="descname">Framing</code><span class="sig-paren">(</span><em>window</em>, <em>hop</em>, <em>length</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval/metrics.html#Framing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.metrics.Framing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>helper iterator class to do overlapped windowing</p>
+<p class="rubric">Attributes</p>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="museval.metrics.Framing.next">
+<code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#museval.metrics.Framing.next" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="museval.metrics.Framing.nwin">
+<code class="descname">nwin</code><a class="headerlink" href="#museval.metrics.Framing.nwin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="museval.metrics.bss_eval">
+<code class="descclassname">museval.metrics.</code><code class="descname">bss_eval</code><span class="sig-paren">(</span><em>reference_sources</em>, <em>estimated_sources</em>, <em>window=88200</em>, <em>hop=66150.0</em>, <em>compute_permutation=False</em>, <em>filters_len=512</em>, <em>framewise_filters=False</em>, <em>bsseval_sources_version=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval/metrics.html#bss_eval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.metrics.bss_eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>BSS_EVAL version 4.</p>
+<blockquote>
+<div><p>Measurement of the separation quality for estimated source signals
+in terms of source to distortion, interference and artifacts ratios,
+(SDR, SIR, SAR) as well as the image to spatial ratio (ISR), as defined
+in <a class="footnote-reference" href="#vincent2005bssevalv3" id="id1">[2]</a>.</p>
+<p>The metrics are computed on a framewise basis, with overlap allowed between
+the windows.</p>
+<p>The key difference between this version 4 and BSS Eval version 3 is the
+possibility of using the same distortion filters for all windows when
+matching the sources to their estimates, instead of estimating the filters
+anew at every frame, as done in BSS Eval v3.</p>
+<p>This implementation is fully compatible with BSS Eval v2 and v3 written
+in MATLAB.</p>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>reference_sources</strong> : np.ndarray, shape=(nsrc, nsampl, nchan)</p>
+<blockquote>
+<div><blockquote>
+<div><p>matrix containing true sources</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>estimated_sources <span class="classifier-delimiter">:</span> <span class="classifier">np.ndarray, shape=(nsrc, nsampl, nchan)</span></dt>
+<dd><p class="first last">matrix containing estimated sources</p>
+</dd>
+<dt>window <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span></dt>
+<dd><p class="first last">size of each window for time-varying evaluation. Picking np.inf or any
+integer greater than nsampl will compute metrics on the whole signal.</p>
+</dd>
+<dt>hop <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span></dt>
+<dd><p class="first last">hop size between windows</p>
+</dd>
+<dt>compute_permutation <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd><p class="first last">compute all permutations of estimate/source combinations to compute
+the best scores (False by default). Note that picking True will lead
+to a significant computation overhead.</p>
+</dd>
+<dt>filters_len <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span></dt>
+<dd><p class="first last">maximum time lag for the computation of the distortion filters. Default
+is filters_len = 512.</p>
+</dd>
+<dt>framewise_filters <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd><p class="first last">Compute a new distortion filter for each frame (False by default). Note
+that picking True as in BSS Eval v2 and v3 leads to a significant
+computation overhead.</p>
+</dd>
+<dt>bsseval_sources_version <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd><p class="first last">if  <code class="docutils literal"><span class="pre">True</span></code>, results correspond to the <cite>bss_eval_sources</cite> version from
+the BSS Eval v2 and v3. Note however that this is not recommended
+because this evaluation method modifies the references according to the
+estimated sources, leading to potential problems for the estimation of
+SDR. For instance, zeroing some frequencies in the estimates will lead
+those to also be zeroed in the references, and hence not evaluated,
+artificially boosting results. For this reason, SiSEC always uses
+the <cite>bss_eval_images</cite> version, corresponding to <code class="docutils literal"><span class="pre">False</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sdr</strong> : np.ndarray, shape=(nsrc, nwin)</p>
+<blockquote class="last">
+<div><blockquote>
+<div><p>matrix of Signal to Distortion Ratios (SDR). One for each source and
+window</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>isr <span class="classifier-delimiter">:</span> <span class="classifier">np.ndarray, shape=(nsrc, nwin)</span></dt>
+<dd><p class="first last">matrix of source Image to Spatial distortion Ratios (ISR)</p>
+</dd>
+<dt>sir <span class="classifier-delimiter">:</span> <span class="classifier">np.ndarray, shape=(nsrc, nwin)</span></dt>
+<dd><p class="first last">matrix of Source to Interference Ratios (SIR)</p>
+</dd>
+<dt>sar <span class="classifier-delimiter">:</span> <span class="classifier">np.ndarray, shape=(nsrc, nwin)</span></dt>
+<dd><p class="first last">matrix of Sources to Artifacts Ratios (SAR)</p>
+</dd>
+<dt>perm <span class="classifier-delimiter">:</span> <span class="classifier">np.ndarray, shape=(nsrc, nwin)</span></dt>
+<dd><p class="first last">vector containing the best ordering of estimated sources in
+the mean SIR sense (estimated source number <code class="docutils literal"><span class="pre">perm[j,t]</span></code> corresponds
+to true source number <code class="docutils literal"><span class="pre">j</span></code> at window <code class="docutils literal"><span class="pre">t</span></code>).
+Note: <code class="docutils literal"><span class="pre">perm</span></code> will be <code class="docutils literal"><span class="pre">(0,2,...,nsrc-1)</span></code> if <code class="docutils literal"><span class="pre">compute_permutation</span></code>
+is <code class="docutils literal"><span class="pre">False</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="liutkus2018bssevalv4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>Antoine Liutkus, Fabian-Robert Stöter and Nobutaka
+Ito, “The 2018 Signal Separation Evaluation Campaign,” In Proceedings of
+LVA/ICA 2018.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="vincent2005bssevalv3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td>Emmanuel Vincent, Rémi Gribonval, and Cédric
+Févotte, “Performance measurement in blind audio source separation,” IEEE
+Trans. on Audio, Speech and Language Processing, 2006.</td></tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># reference_sources[n] should be a 2D ndarray, with first dimension the</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># samples and second dimension the channels of the n&#39;th reference</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># source estimated_sources[n] should be the same for the n&#39;th estimated</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># source</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">sdr</span><span class="p">,</span> <span class="n">isr</span><span class="p">,</span> <span class="n">sir</span><span class="p">,</span> <span class="n">sar</span><span class="p">,</span> <span class="n">perm</span><span class="p">)</span> <span class="o">=</span> <span class="n">mir_eval</span><span class="o">.</span><span class="n">separation</span><span class="o">.</span><span class="n">bss_eval</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">reference_sources</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">estimated_sources</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="museval.metrics.bss_eval_images">
+<code class="descclassname">museval.metrics.</code><code class="descname">bss_eval_images</code><span class="sig-paren">(</span><em>reference_sources</em>, <em>estimated_sources</em>, <em>compute_permutation=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval/metrics.html#bss_eval_images"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.metrics.bss_eval_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>BSS Eval v3 bss_eval_images</p>
+<p>Wrapper to <code class="docutils literal"><span class="pre">bss_eval</span></code> with the right parameters.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="museval.metrics.bss_eval_images_framewise">
+<code class="descclassname">museval.metrics.</code><code class="descname">bss_eval_images_framewise</code><span class="sig-paren">(</span><em>reference_sources</em>, <em>estimated_sources</em>, <em>window=1323000</em>, <em>hop=661500</em>, <em>compute_permutation=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval/metrics.html#bss_eval_images_framewise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.metrics.bss_eval_images_framewise" title="Permalink to this definition">¶</a></dt>
+<dd><p>BSS Eval v3 bss_eval_images_framewise</p>
+<p>Framewise computation of bss_eval_images.
+Wrapper to <code class="docutils literal"><span class="pre">bss_eval</span></code> with the right parameters.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="museval.metrics.bss_eval_sources">
+<code class="descclassname">museval.metrics.</code><code class="descname">bss_eval_sources</code><span class="sig-paren">(</span><em>reference_sources</em>, <em>estimated_sources</em>, <em>compute_permutation=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval/metrics.html#bss_eval_sources"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.metrics.bss_eval_sources" title="Permalink to this definition">¶</a></dt>
+<dd><p>BSS Eval v3 bss_eval_sources</p>
+<p>Wrapper to <code class="docutils literal"><span class="pre">bss_eval</span></code> with the right parameters.
+The call to this function is not recommended. See the description for the
+<code class="docutils literal"><span class="pre">bsseval_sources</span></code> parameter of <code class="docutils literal"><span class="pre">bss_eval</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="museval.metrics.bss_eval_sources_framewise">
+<code class="descclassname">museval.metrics.</code><code class="descname">bss_eval_sources_framewise</code><span class="sig-paren">(</span><em>reference_sources</em>, <em>estimated_sources</em>, <em>window=1323000</em>, <em>hop=661500</em>, <em>compute_permutation=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval/metrics.html#bss_eval_sources_framewise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.metrics.bss_eval_sources_framewise" title="Permalink to this definition">¶</a></dt>
+<dd><p>BSS Eval v3 bss_eval_sources_framewise</p>
+<p>Wrapper to <code class="docutils literal"><span class="pre">bss_eval</span></code> with the right parameters.
+The call to this function is not recommended. See the description for the
+<code class="docutils literal"><span class="pre">bsseval_sources</span></code> parameter of <code class="docutils literal"><span class="pre">bss_eval</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="museval.metrics.validate">
+<code class="descclassname">museval.metrics.</code><code class="descname">validate</code><span class="sig-paren">(</span><em>reference_sources</em>, <em>estimated_sources</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval/metrics.html#validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.metrics.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks that the input data to a metric are valid, and throws helpful
+errors if not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>reference_sources</strong> : np.ndarray, shape=(nsrc, nsampl,nchan)</p>
+<blockquote>
+<div><p>matrix containing true sources</p>
+</div></blockquote>
+<p><strong>estimated_sources</strong> : np.ndarray, shape=(nsrc, nsampl,nchan)</p>
+<blockquote class="last">
+<div><p>matrix containing estimated sources</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="museval.html" class="btn btn-neutral" title="museval modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Fabian-Robert Stöter.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

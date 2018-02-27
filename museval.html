@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>museval modules &mdash; museval 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="museval 0.2.0 documentation" href="index.html"/>
+        <link rel="next" title="BSSEval v4" href="museval.metrics.html"/>
+        <link rel="prev" title="Usage" href="usage.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> museval
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">museval modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="museval.metrics.html">BSSEval v4</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">museval</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>museval modules</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/museval.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="museval-modules">
+<h1>museval modules<a class="headerlink" href="#museval-modules" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-museval"></span><p>self</p>
+<dl class="class">
+<dt id="museval.EvalStore">
+<em class="property">class </em><code class="descclassname">museval.</code><code class="descname">EvalStore</code><span class="sig-paren">(</span><em>win=1</em>, <em>hop=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval.html#EvalStore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.EvalStore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Evaluation Track Data Storage Object</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>win</strong></td>
+<td>(float) evaluation window duration in seconds, default to 1s</td>
+</tr>
+<tr class="row-even"><td><strong>hop</strong></td>
+<td>(float) hop length in seconds, defaults to 1s</td>
+</tr>
+<tr class="row-odd"><td><strong>rate</strong></td>
+<td>(int) Track sample rate</td>
+</tr>
+<tr class="row-even"><td><strong>scores</strong></td>
+<td>(Dict) Nested Dictionary of all scores</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="museval.EvalStore.add_target">
+<code class="descname">add_target</code><span class="sig-paren">(</span><em>target_name</em>, <em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval.html#EvalStore.add_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.EvalStore.add_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>add target to scores Dictionary</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>target_name</strong> : str</p>
+<blockquote>
+<div><p>name of target to be added to list of targets</p>
+</div></blockquote>
+<p><strong>values</strong> : List(Dict)</p>
+<blockquote class="last">
+<div><p>List of framewise data entries, see <cite>musdb.schema.json</cite></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="museval.EvalStore.json">
+<code class="descname">json</code><a class="headerlink" href="#museval.EvalStore.json" title="Permalink to this definition">¶</a></dt>
+<dd><p>add target to scores Dictionary</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>json_string</strong> : str</p>
+<blockquote class="last">
+<div><p>json dump of the scores dictionary</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="museval.EvalStore.validate">
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval.html#EvalStore.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.EvalStore.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate scores against <cite>musdb.schema</cite></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="museval.eval_dir">
+<code class="descclassname">museval.</code><code class="descname">eval_dir</code><span class="sig-paren">(</span><em>reference_dir</em>, <em>estimates_dir</em>, <em>output_dir=None</em>, <em>mode='v4'</em>, <em>win=1.0</em>, <em>hop=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval.html#eval_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.eval_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute bss_eval metrics for two given directories assuming file
+names are identical for both, reference source and estimates.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>reference_dir</strong> : str</p>
+<blockquote>
+<div><p>path to reference sources directory.</p>
+</div></blockquote>
+<p><strong>estimates_dir</strong> : str</p>
+<blockquote>
+<div><p>path to estimates directory.</p>
+</div></blockquote>
+<p><strong>output_dir</strong> : str</p>
+<blockquote>
+<div><p>path to output directory used to save evaluation results. Defaults to
+<cite>None</cite>, meaning no evaluation files will be saved.</p>
+</div></blockquote>
+<p><strong>mode</strong> : str</p>
+<blockquote>
+<div><p>bsseval version number. Defaults to ‘v4’.</p>
+</div></blockquote>
+<p><strong>win</strong> : int</p>
+<blockquote>
+<div><p>window size in</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>scores</strong> : EvalStore</p>
+<blockquote class="last">
+<div><p>scores object that holds the framewise and global evaluation scores.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="museval.eval_mus_dir">
+<code class="descclassname">museval.</code><code class="descname">eval_mus_dir</code><span class="sig-paren">(</span><em>dataset</em>, <em>estimates_dir</em>, <em>output_dir=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval.html#eval_mus_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.eval_mus_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run musdb.run for the purpose of evaluation of musdb estimate dir</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>dataset</strong> : DB(object)</p>
+<blockquote>
+<div><p>Musdb Database object.</p>
+</div></blockquote>
+<p><strong>estimates_dir</strong> : str</p>
+<blockquote>
+<div><p>Path to estimates folder.</p>
+</div></blockquote>
+<p><strong>output_dir</strong> : str</p>
+<blockquote>
+<div><p>Output folder where evaluation json files are stored.</p>
+</div></blockquote>
+<p><strong>*args</strong></p>
+<blockquote>
+<div><p>Variable length argument list for <cite>musdb.run()</cite>.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Arbitrary keyword arguments for <cite>musdb.run()</cite>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="museval.eval_mus_track">
+<code class="descclassname">museval.</code><code class="descname">eval_mus_track</code><span class="sig-paren">(</span><em>track</em>, <em>user_estimates</em>, <em>output_dir=None</em>, <em>mode='v4'</em>, <em>win=1.0</em>, <em>hop=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval.html#eval_mus_track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.eval_mus_track" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute all bss_eval metrics for the musdb track and estimated signals,
+given by a <cite>user_estimates</cite> dict.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>track</strong> : Track</p>
+<blockquote>
+<div><p>musdb track object loaded using musdb</p>
+</div></blockquote>
+<p><strong>estimated_sources</strong> : Dict</p>
+<blockquote>
+<div><p>dictionary, containing the user estimates as np.arrays.</p>
+</div></blockquote>
+<p><strong>output_dir</strong> : str</p>
+<blockquote>
+<div><p>path to output directory used to save evaluation results. Defaults to
+<cite>None</cite>, meaning no evaluation files will be saved.</p>
+</div></blockquote>
+<p><strong>mode</strong> : str</p>
+<blockquote>
+<div><p>bsseval version number. Defaults to ‘v4’.</p>
+</div></blockquote>
+<p><strong>win</strong> : int</p>
+<blockquote>
+<div><p>window size in</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>scores</strong> : EvalStore</p>
+<blockquote class="last">
+<div><p>scores object that holds the framewise and global evaluation scores.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="museval.evaluate">
+<code class="descclassname">museval.</code><code class="descname">evaluate</code><span class="sig-paren">(</span><em>references</em>, <em>estimates</em>, <em>win=44100</em>, <em>hop=44100</em>, <em>mode='v4'</em>, <em>padding=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval.html#evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>BSS_EVAL images evaluation using metrics module</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>references</strong> : np.ndarray, shape=(nsrc, nsampl, nchan)</p>
+<blockquote>
+<div><p>array containing true reference sources</p>
+</div></blockquote>
+<p><strong>estimates</strong> : np.ndarray, shape=(nsrc, nsampl, nchan)</p>
+<blockquote>
+<div><p>array containing estimated sources</p>
+</div></blockquote>
+<p><strong>window</strong> : int, defaults to 44100</p>
+<blockquote>
+<div><p>window size in samples</p>
+</div></blockquote>
+<p><strong>hop</strong> : int</p>
+<blockquote>
+<div><p>hop size in samples, defaults to 44100 (no overlap)</p>
+</div></blockquote>
+<p><strong>mode</strong> : str</p>
+<blockquote>
+<div><p>BSSEval version, default to <cite>v4</cite></p>
+</div></blockquote>
+<p><strong>Returns</strong></p>
+<p><strong>——-</strong></p>
+<p><strong>SDR</strong> : np.ndarray, shape=(nsrc,)</p>
+<blockquote>
+<div><p>vector of Signal to Distortion Ratios (SDR)</p>
+</div></blockquote>
+<p><strong>ISR</strong> : np.ndarray, shape=(nsrc,)</p>
+<blockquote>
+<div><p>vector of Source to Spatial Distortion Image (ISR)</p>
+</div></blockquote>
+<p><strong>SIR</strong> : np.ndarray, shape=(nsrc,)</p>
+<blockquote>
+<div><p>vector of Source to Interference Ratios (SIR)</p>
+</div></blockquote>
+<p><strong>SAR</strong> : np.ndarray, shape=(nsrc,)</p>
+<blockquote class="last">
+<div><p>vector of Sources to Artifacts Ratios (SAR)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="museval.pad_or_truncate">
+<code class="descclassname">museval.</code><code class="descname">pad_or_truncate</code><span class="sig-paren">(</span><em>audio_reference</em>, <em>audio_estimates</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/museval.html#pad_or_truncate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#museval.pad_or_truncate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pad or truncate estimates by duration of references:
+- If reference &gt; estimates: add zeros at the and of the estimated signal
+- If estimates &gt; references: truncate estimates to duration of references</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>references</strong> : np.ndarray, shape=(nsrc, nsampl, nchan)</p>
+<blockquote>
+<div><p>array containing true reference sources</p>
+</div></blockquote>
+<p><strong>estimates</strong> : np.ndarray, shape=(nsrc, nsampl, nchan)</p>
+<blockquote>
+<div><p>array containing estimated sources</p>
+</div></blockquote>
+<p><strong>Returns</strong></p>
+<p><strong>——-</strong></p>
+<p><strong>references</strong> : np.ndarray, shape=(nsrc, nsampl, nchan)</p>
+<blockquote>
+<div><p>array containing true reference sources</p>
+</div></blockquote>
+<p><strong>estimates</strong> : np.ndarray, shape=(nsrc, nsampl, nchan)</p>
+<blockquote class="last">
+<div><p>array containing estimated sources</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="museval.metrics.html" class="btn btn-neutral float-right" title="BSSEval v4" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="usage.html" class="btn btn-neutral" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Fabian-Robert Stöter.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

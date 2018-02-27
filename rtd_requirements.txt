@@ -1,7 +1,0 @@
-pip >= 8.0.0
-wheel
-numpy>=1.7
-sphinx
-sphinx_rtd_theme
-numpydoc
-museval
