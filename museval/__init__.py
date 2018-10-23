@@ -8,7 +8,7 @@ from decimal import Decimal as D
 import glob
 from jsonschema import validate
 import museval
-import scipy
+from scipy.io import wavfile
 
 
 class EvalStore(object):
@@ -127,7 +127,7 @@ class EvalStore(object):
 
 
 def _load_audio(file_path):
-    rate, audio = scipy.io.wavfile.read(file_path)
+    rate, audio = wavfile.read(file_path)
     if len(audio.shape) == 1:
         audio = np.expand_dims(audio, axis=-1)
     audio = audio.astype(np.float32, order='C') / 32768.0
