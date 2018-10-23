@@ -171,6 +171,7 @@ def eval_dir(
     mode='v4',
     win=1.0,
     hop=1.0,
+    compute_permutation=False
 ):
     """Compute bss_eval metrics for two given directories assuming file
     names are identical for both, reference source and estimates.
@@ -227,7 +228,8 @@ def eval_dir(
         estimates,
         win=int(win*global_rate),
         hop=int(hop*global_rate),
-        mode=mode
+        mode=mode,
+        compute_permutation=compute_permutation
     )
     for i, target in enumerate(targets):
         values = {
@@ -465,7 +467,8 @@ def evaluate(
     win=1*44100,
     hop=1*44100,
     mode='v4',
-    padding=True
+    padding=True,
+    compute_permutation=False
 ):
     """BSS_EVAL images evaluation using metrics module
 
@@ -502,7 +505,7 @@ def evaluate(
     SDR, ISR, SIR, SAR, _ = metrics.bss_eval(
         references,
         estimates,
-        compute_permutation=False,
+        compute_permutation=compute_permutation,
         window=win,
         hop=hop,
         framewise_filters=(mode == "v3"),
