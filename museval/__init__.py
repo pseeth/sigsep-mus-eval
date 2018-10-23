@@ -9,7 +9,6 @@ import glob
 import librosa
 from jsonschema import validate
 import functools
-import musdb
 import museval
 
 
