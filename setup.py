@@ -37,7 +37,7 @@ if __name__ == "__main__":
             'scipy',
             'six',
             'simplejson',
-            'soundfile',
+            'librosa',
             'jsonschema'
         ],
 

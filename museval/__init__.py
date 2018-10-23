@@ -6,7 +6,7 @@ import numpy as np
 import os
 from decimal import Decimal as D
 import glob
-import soundfile as sf
+import librosa
 from jsonschema import validate
 import functools
 import musdb
@@ -127,6 +127,12 @@ class EvalStore(object):
         else:
             return D(D(number).quantize(D(precision)))
 
+def _load_audio(file_path):
+    audio, rate = librosa.load(
+        file_path, sr = None, mono = False)
+    if len(audio.shape) == 1:
+        audio = np.expand_dims(audio, axis=-1)
+    return audio.T, rate
 
 def _load_track_estimates(track, estimates_dir, output_dir):
     """load estimates from disk instead of processing"""
@@ -144,10 +150,7 @@ def _load_track_estimates(track, estimates_dir, output_dir):
             os.path.basename(target)
         )[0]
         try:
-            target_audio, rate = sf.read(
-                target,
-                always_2d=True
-            )
+            target_audio, rate = _load_audio(target)
             user_results[target_name] = target_audio
         except RuntimeError:
             pass
@@ -202,10 +205,7 @@ def eval_dir(
     reference_glob = os.path.join(reference_dir, '*.wav')
     # Load in each reference file in the supplied dir
     for reference_file in glob.glob(reference_glob):
-        ref_audio, rate = sf.read(
-            reference_file,
-            always_2d=True
-        )
+        ref_audio, rate = _load_audio(reference_file)
         # Make sure fs is the same for all files
         assert (global_rate is None or rate == global_rate)
         global_rate = rate
@@ -218,10 +218,7 @@ def eval_dir(
     targets = []
     for estimated_file in glob.glob(estimated_glob):
         targets.append(os.path.basename(estimated_file))
-        ref_audio, rate = sf.read(
-            estimated_file,
-            always_2d=True
-        )
+        ref_audio, rate = _load_audio(estimated_file)
         assert (global_rate is None or rate == global_rate)
         global_rate = rate
         estimates.append(ref_audio)
