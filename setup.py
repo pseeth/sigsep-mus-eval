@@ -36,7 +36,6 @@ if __name__ == "__main__":
             'scipy',
             'six',
             'simplejson',
-            'librosa',
             'jsonschema'
         ],
 

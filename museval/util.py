@@ -1,8 +1,10 @@
 import inspect
 import six
+import numpy as np
+import os
+import scipy
 
 __version__ = "0.2.1"
-
 
 def has_kwargs(function):
     r'''Determine whether a function has \*\*kwargs.

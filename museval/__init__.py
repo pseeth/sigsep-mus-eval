@@ -6,10 +6,9 @@ import numpy as np
 import os
 from decimal import Decimal as D
 import glob
-import librosa
 from jsonschema import validate
-import functools
 import museval
+import scipy
 
 
 class EvalStore(object):
@@ -126,12 +125,13 @@ class EvalStore(object):
         else:
             return D(D(number).quantize(D(precision)))
 
+
 def _load_audio(file_path):
-    audio, rate = librosa.load(
-        file_path, sr = None, mono = False)
+    rate, audio = scipy.io.wavfile.read(file_path)
     if len(audio.shape) == 1:
         audio = np.expand_dims(audio, axis=-1)
-    return audio.T, rate
+    audio = audio.astype(np.float32, order='C') / 32768.0
+    return audio, rate
 
 def _load_track_estimates(track, estimates_dir, output_dir):
     """load estimates from disk instead of processing"""
@@ -243,46 +243,6 @@ def eval_dir(
         )
 
     return data
-
-
-def eval_mus_dir(
-    dataset,
-    estimates_dir,
-    output_dir=None,
-    *args, **kwargs
-):
-    """Run musdb.run for the purpose of evaluation of musdb estimate dir
-
-    Parameters
-    ----------
-    dataset : DB(object)
-        Musdb Database object.
-    estimates_dir : str
-        Path to estimates folder.
-    output_dir : str
-        Output folder where evaluation json files are stored.
-    *args
-        Variable length argument list for `musdb.run()`.
-    **kwargs
-        Arbitrary keyword arguments for `musdb.run()`.
-    """
-    # create a new musdb instance for estimates with the same file structure
-    est = musdb.DB(root_dir=estimates_dir, is_wav=True)
-    # load all estimates track_names
-    est_tracks = est.load_mus_tracks()
-    # get a list of track names
-    tracknames = [t.name for t in est_tracks]
-    # load only musdb tracks where we have estimate tracks
-    tracks = dataset.load_mus_tracks(tracknames=tracknames)
-    # wrap the estimate loader
-    run_fun = functools.partial(
-        _load_track_estimates,
-        estimates_dir=estimates_dir,
-        output_dir=output_dir
-    )
-    # evaluate tracks
-    dataset.run(run_fun, estimates_dir=None, tracks=tracks, *args, **kwargs)
-
 
 def to_df(eval, track):
     import pandas as pd
